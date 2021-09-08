@@ -220,9 +220,10 @@ const Hero = () => {
   } = useLottery()
 
   const cakePriceBusd = usePriceCakeBusd()
+
   const prizeInBusd = amountCollectedInCake.times(cakePriceBusd)
   const prizeTotal = getBalanceNumber(prizeInBusd)
-  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN || isTransitioning
+  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN // || isTransitioning
 
   const getHeroHeading = () => {
     if (status === LotteryStatus.OPEN) {
@@ -257,7 +258,7 @@ const Hero = () => {
         <img src="/images/lottery/ticket-r.png" width="121px" height="72px" alt="" />
       </StarsDecorations>
       <Heading mb="8px" scale="md" color="#ffffff">
-        {t('The PancakeSwap Lottery')}
+        {t('The Ricefarm Lottery')}
       </Heading>
       {getHeroHeading()}
       <TicketContainer

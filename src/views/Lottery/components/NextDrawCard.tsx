@@ -61,7 +61,7 @@ const NextDrawCard = () => {
 
   const [onPresentViewTicketsModal] = useModal(<ViewTicketsModal roundId={currentLotteryId} roundStatus={status} />)
   const [isExpanded, setIsExpanded] = useState(false)
-  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN || isTransitioning
+  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN // || isTransitioning
 
   const cakePriceBusd = usePriceCakeBusd()
   const prizeInBusd = amountCollectedInCake.times(cakePriceBusd)
@@ -101,7 +101,7 @@ const NextDrawCard = () => {
             fontSize="14px"
             color="textSubtle"
             textAlign={['center', null, null, 'left']}
-            unit=" CAKE"
+            unit=" RICE"
             value={getBalanceNumber(amountCollectedInCake)}
             decimals={0}
           />

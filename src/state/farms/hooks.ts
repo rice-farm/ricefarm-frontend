@@ -99,7 +99,22 @@ export const usePriceBnbBusd = (): BigNumber => {
   return new BigNumber(bnbBusdFarm.quoteToken.busdPrice)
 }
 
-export const usePriceCakeBusd = (): BigNumber => {
-  const cakeBnbFarm = useFarmFromPid(4)
-  return new BigNumber(cakeBnbFarm.token.busdPrice)
+// export const usePriceCakeBusd = (): BigNumber => {
+//   const cakeBnbFarm = useFarmFromPid(4)
+//   return new BigNumber(cakeBnbFarm.token.busdPrice)
+// }
+export const usePriceRiceBusd = (): BigNumber => {
+  // calculate from rice busd farm
+  const riceBusdFarm = useFarmFromPid(4)
+  const priceFromBusdFarm = riceBusdFarm.tokenPriceVsQuote ? new BigNumber(riceBusdFarm.tokenPriceVsQuote) : BIG_ZERO
+
+  // calculate from rice bnb farm
+  const riceBnbFarm = useFarmFromPid(2)
+  const bnbBusdPrice = usePriceBnbBusd()
+  const priceFromBnbFarm = riceBnbFarm.tokenPriceVsQuote ? bnbBusdPrice.times(riceBnbFarm.tokenPriceVsQuote) : BIG_ZERO
+
+  return priceFromBusdFarm.gt(priceFromBnbFarm) ? priceFromBusdFarm : priceFromBnbFarm
 }
+
+// todo: to help with merge issues
+export const usePriceCakeBusd = usePriceRiceBusd
